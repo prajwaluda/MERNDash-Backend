@@ -14,16 +14,16 @@ jobs:
             - name: Login to docker hub
               run: docker -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
             - name: Build docker image
-              run: docker build -t prajwaludpdi/MernNode
+              run: docker build -t prajwaludpdi0/dashnode
             - name: Publish image to docker hub
-              run: docker push prajwaludpdi/MernNode:latest
+              run: docker push prajwaludpdi0/dashnode:latest
 
     deploy:
         needs: build
         runs-on: self-hosted
         steps:
             - name: Pull image from docker hub
-              run: docker pull prajwaludpdi/MernNode:latest
+              run: docker pull prajwaludpdi0/dashnode:latest
             - name: Run the container
-              run: docker run -d -p 5001:5001 --name mernnodejs-app-container -e MONGO_URL= ${{secrets.MONGO_URL}} prajwaludpdi/MernNode
+              run: docker run -d -p 5001:5001 --name dashnodejs-app-container -e MONGO_URL= ${{secrets.MONGO_URL}} prajwaludpdi0/dashnode
 
