@@ -1,0 +1,29 @@
+name: Deploy node application
+
+on:
+    push:
+        branches:
+            - main
+    
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout source
+              uses: actions/checkout@v6
+            - name: Login to docker hub
+              run: docker -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+            - name: Build docker image
+              run: docker build -t prajwaludpdi/MernNode
+            - name: Publish image to docker hub
+              run: docker push prajwaludpdi/MernNode:latest
+
+    deploy:
+        needs: build
+        runs-on: self-hosted
+        steps:
+            - name: Pull image from docker hub
+              run: docker pull prajwaludpdi/MernNode:latest
+            - name: Run the container
+              run: docker run -d -p 5001:5001 --name mernnodejs-app-container -e MONGO_URL= ${{secrets.MONGO_URL}} prajwaludpdi/MernNode
+
