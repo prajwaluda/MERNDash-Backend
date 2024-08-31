@@ -19,6 +19,8 @@ jobs:
             with:
               push: true
               tags: prajwaludpdi0/dashnode:latest
+              secrets:
+                    "MONGO_URL= ${{secrets.MONGO_URL}} PORT= ${{secrets.PORT}}"
               
 
     deploy:
@@ -27,5 +29,7 @@ jobs:
         steps:
             - name: Pull image from docker hub
               run: docker pull prajwaludpdi0/dashnode:latest
+            - name: Delete old container
+              run: docker rm -f reactjs-app-container
             - name: Run the container
-              run: docker run -d -p 5001:5001 --name dashnodejs-app-container -e MONGO_URL= ${{secrets.MONGO_URL}} -e PORT= ${{secrets.PORT}} prajwaludpdi0/dashnode
+              run: docker run -d -p 5001:5001 --name dashnodejs-app-container  prajwaludpdi0/dashnode
