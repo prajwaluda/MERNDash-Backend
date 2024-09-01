@@ -30,6 +30,6 @@ jobs:
             - name: Pull image from docker hub
               run: docker pull prajwaludpdi0/dashnode:latest
             - name: Delete old container
-              run: docker rm -f reactjs-app-container
+              run: docker rm -f dashnodejs-app-container
             - name: Run the container
               run: docker run -d -p 5001:5001 --name dashnodejs-app-container  prajwaludpdi0/dashnode
