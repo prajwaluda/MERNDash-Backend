@@ -37,6 +37,7 @@ app.use("/sales",salesRoutes);
 app.use("/general",generalRoutes); 
 
 const PORT=process.env.PORT|| 9000;
+console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     app.listen(PORT,()=>
