@@ -20,7 +20,7 @@ jobs:
               push: true
               tags: prajwaludpdi0/dashnode:latest
               secrets:
-                    "MONGO_URL= ${{secrets.MONGO_URL}} PORT= ${{secrets.PORT}}"
+                    "MONGO_URL= ${{secrets.MONGO_URL}}"
               
 
     deploy:
